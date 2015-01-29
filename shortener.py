@@ -1,4 +1,4 @@
-SERVER_URL = "http://127.0.0.1:4999/"
+SERVER_URL = "http://127.0.0.1:5001/"
 
 from flask import Flask, render_template, redirect, request
 
@@ -14,41 +14,21 @@ def make_normal(url):
 
 @app.route("/")
 def home():
-    return """
-<head>
-    <html>
-    </html>
-    <body>
-        <h2> Shorten an url! </h2>
-        <form method="post" action="/new_url">
-            <label>
-                Your url: <br />
-                <input type="text" name="url" />
-            </label>
-            <input type="submit" value="Just do it!" />
-        </form>
-    </body>
-</html>
-"""
+    return render_template("add_url.html")
+
+@app.route("/added/<url_id>")
+def result(url_id):
+    return render_template("result.html", url=SERVER_URL + url_id)
 
 @app.route("/new_url", methods=["POST"])
 def new_url():
     url = add_url(make_normal(request.form['url']))
-    print(url)
-    return """
-<head>
-    <html>
-    </html>
-    <body>
-        <h2> Cool! now your url is here:</h2>
-        <a href=\"""" + SERVER_URL + url + """\">""" + SERVER_URL + url + """ </a>
-    </body>
-</html>
-"""
+    return redirect("/added/" + url)
+    
 
 @app.route("/<int:url_id>")
 def return_url(url_id):
     return redirect(get_url(url_id))
 
 if __name__ == "__main__":
-    app.run(debug=True, port=4999)
+    app.run(debug=True, port=5001)
