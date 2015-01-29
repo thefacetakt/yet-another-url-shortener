@@ -1,6 +1,10 @@
-<h2>
-    Cool! now your url is here:
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="text-center">
+    Cool! Now your url is here:
 </h2>
-<a href="{{url}}">
-    {{url}} 
-</a>
+
+<input type="text" class="form-control text-center" value="{{url}}" onFocus="this.select()" autofocus />
+
+{% endblock %}
