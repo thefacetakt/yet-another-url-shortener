@@ -1,11 +1,16 @@
-#Vagrand - front-end к virtual-box
 SERVER_URL = "http://127.0.0.1:4999/"
 
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request
 
 from urls import get_url, add_url
+
 app = Flask(__name__)
 
+def make_normal(url):
+    if (url[:7] == "http://" or url[:8] == "https://"):
+        return url
+    else:
+        return "http://" + url
 
 @app.route("/")
 def home():
@@ -28,7 +33,7 @@ def home():
 
 @app.route("/new_url", methods=["POST"])
 def new_url():
-    url = add_url(request.form['url'])
+    url = add_url(make_normal(request.form['url']))
     print(url)
     return """
 <head>
@@ -43,7 +48,7 @@ def new_url():
 
 @app.route("/<int:url_id>")
 def return_url(url_id):
-    return redirect(url_for(get_url(url_id)))
+    return redirect(get_url(url_id))
 
 if __name__ == "__main__":
     app.run(debug=True, port=4999)

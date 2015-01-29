@@ -1,1 +1,1 @@
-({'next_url': 8, 'www.ya.ru': '6', '15997': '5', 'www.yandex.ru': '3', 'yandex.ru': '7', '123': '2', 'vk.com': '4'}, {'2': '123', '5': '15997', '4': 'vk.com', '3': 'www.yandex.ru', '7': 'yandex.ru', '6': 'www.ya.ru'})
+({'next_url': 1, 'http://yandex.ru': '0'}, {'0': 'http://yandex.ru'})
